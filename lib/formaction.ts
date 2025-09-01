@@ -1,7 +1,6 @@
 'use server';
 import { promises as fs } from 'fs';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 import path from 'path';
 
 const filePath = path.join(process.cwd(), 'lib/data/menu.json');
@@ -27,5 +26,5 @@ export async function addMenuItem(formData: FormData) {
     data.push({ id: newId, title: item, parentId: parentIdNumber });
 
     await fs.writeFile(filePath, JSON.stringify(data, null, 2));
-    redirect("/");
+    revalidatePath('/');
 }
